@@ -36,17 +36,15 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
             String aValue = row.get(field);
-            for (String entry : row.keySet()) {
-                String entryValue = row.get(entry).toLowerCase();
-                if (entryValue.contains(field.toLowerCase())) {
-                    if (!values.contains(row.get(entry))) {
-                        values.add(row.get(entry));
-                    }
-                }
+
+            if (!values.contains(aValue)) {
+                values.add(aValue);
             }
         }
+
         return values;
     }
+
 
     public static ArrayList<HashMap<String, String>> findAll() {
 
@@ -101,8 +99,8 @@ public class JobData {
 
         for (int i = 0; i < allJobs.size(); i++) {
             for (HashMap<String, String> row : allJobs)  {
-                for (String entry : row.values()) {
-                    if (entry.contains(value)) {
+                for (String entry : row.keySet()) {
+                    if (row.get(entry).toLowerCase().contains(value.toLowerCase())) {
                         if (!values.contains(row)) {
                             values.add(row);
                         }
