@@ -17,7 +17,7 @@ public class TechJobs {
         columnChoices.put("core competency", "Skill");
         columnChoices.put("employer", "Employer");
         columnChoices.put("location", "Location");
-        columnChoices.put("position type", "Position Type");
+        columnChoices.put("name", "Position Type");
         columnChoices.put("all", "All");
 
         // Top-level menu options
@@ -62,9 +62,17 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    printJobs(JobData.findByValue(searchTerm));
+                    if (JobData.findByValue(searchTerm).size() == 0) {
+                        System.out.println("search term not found");
+                    } else {
+                        printJobs(JobData.findByValue(searchTerm));
+                    }
                 } else {
-                    printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                    if (JobData.findByColumnAndValue(searchField, searchTerm).size() == 0) {
+                        System.out.println(searchField + " not found");
+                    } else {
+                        printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
+                    }
                 }
             }
         }
@@ -122,16 +130,20 @@ public class TechJobs {
 
         // System.out.println("printJobs is not implemented yet");
         for (int i = 0; i < someJobs.size(); i++) {
-            someJobs.get(i).forEach((key, value) -> {
-                System.out.println("key: " + key);
-                System.out.println("value: " + value);
-            });
-//            System.out.println("i:" + i + " " + someJobs.get(i));
-//            System.out.println(someJobs.get(i));
-//            System.out.println(someJobs.get(i).getClass().getName());
-//            for (Object j : jobs.values()) {
-//                System.out.println(j);
-//            }
+            //            someJobs.get(i).forEach((key, value) -> {
+            //                System.out.println("key: " + key);
+            //                System.out.println("value: " + value);
+            //            });
+            //            System.out.println("i:" + i + " " + someJobs.get(i));
+
+            System.out.println("");
+            System.out.println("*****");
+            System.out.println("position type: " + someJobs.get(i).get("position type"));
+            System.out.println("name: " + someJobs.get(i).get("name"));
+            System.out.println("employer: " + someJobs.get(i).get("employer"));
+            System.out.println("location: " + someJobs.get(i).get("location"));
+            System.out.println("core competency: " + someJobs.get(i).get("core competency"));
+            System.out.println("*****");
         }
     }
 }
